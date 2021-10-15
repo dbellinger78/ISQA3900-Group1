@@ -14,9 +14,10 @@ class Category(models.Model): #14min in
 class Product(models.Model): #about 19 min in
     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, on_delete= models.CASCADE, related_name='product_creator')
-    title = models.CharField(max_length= 255)
-    author = models.CharField(max_length=255, default='admin')
-    description = models.TextField(blank=True)
+    product_name = models.CharField(max_length= 255)
+    sleeve_style = models.CharField(max_length=255, default='short sleeve')
+    shirt_style = models.CharField(max_length=255, default='tshirt')
+    size = models.CharField(max_length=255, default='Medium')
     image = models.ImageField(upload_to='images/')
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=4, decimal_places=2)
