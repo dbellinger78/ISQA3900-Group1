@@ -1,0 +1,69 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Online Warrior Store Home{% endblock %}
+
+{% block content %}
+
+    <main>
+    <div style="padding-left: 5%; padding-right: 5%">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-5 fw-bold lh-1 mb-3" style="text-align: center">Welcome to the Online Warrior Store!</h1>
+        <p class="display-7 lh-1 mb-3" style="text-align: center">Shirts for all occasions. Sign up to shop our store.</p>
+          <img src="/media/images/site/ow_logo.jpeg" style="display: block; width: 50%; margin-left: auto; margin-right: auto;" alt="Logo">
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+          <hr class="my-4">
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+        </form>
+      </div>
+      </div>
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="pb-3 h5">All Products</div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+                    {% for product in products %}
+
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="img-fluid" alt="Responsive image" src="{{ product.front_image.url }}">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.product_name }}</a>
+                                </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">{{ product.description }}</small>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+        {% endfor %}
+
+                </div>
+        </div>
+    </div>
+
+
+</main>
+
+{% endblock %}
