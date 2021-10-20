@@ -2,12 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from .models import Category, Product
 
 
-def categories(request):
-    return {'categories': Category.objects.all}
-
-
 def product_all(request):
-    products = Product.objects.all()
+    products = Product.products.all()
     return render(request, 'estore/home.html', {'products': products})
 
 
