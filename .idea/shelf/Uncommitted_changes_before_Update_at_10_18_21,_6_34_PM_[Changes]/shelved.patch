@@ -1,0 +1,45 @@
+Index: onlinestore/models.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.contrib.auth.models import User\nfrom django.db import models\n\nclass Category(models.Model): #14min in\n    name = models.CharField(max_length=255, db_index=True)\n    slug = models.SlugField(max_length=255, unique=True)\n\n    class Meta:\n        verbose_name_plural = 'categories'\n\n    def get_absolute_url(self):\n        return self.name\n\nclass Product(models.Model): #about 19 min in\n    category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)\n    created_by = models.ForeignKey(User, on_delete= models.CASCADE, related_name='product_creator')\n    product_name = models.CharField(max_length= 255)\n    sleeve_style = models.CharField(max_length=255, default='Short Sleeve')\n    shirt_style = models.CharField(max_length=255, default='T-Shirt')\n    size = models.CharField(max_length=255, default='Medium')\n    image = models.ImageField(upload_to='images/')\n    slug = models.SlugField(max_length=255)\n    price = models.DecimalField(max_digits=4, decimal_places=2)\n    in_stock = models.BooleanField(default=True)\n    is_active = models.BooleanField(default=True)\n    created = models.DateTimeField(auto_now_add=True)\n    updated = models.DateTimeField(auto_now=True)\n\n    class Meta:\n        verbose_name_plural = 'Products'\n        ordering = ('-created',) #27:21 #can remove hyphen to have all \"created\" orders show\n\n    def __str__(self):\n        return self.title #im at 34:26 10/5/2021\n\n\n
+===================================================================
+diff --git a/onlinestore/models.py b/onlinestore/models.py
+--- a/onlinestore/models.py	
++++ b/onlinestore/models.py	
+@@ -1,7 +1,8 @@
+ from django.contrib.auth.models import User
+ from django.db import models
+ 
+-class Category(models.Model): #14min in
++
++class Category(models.Model):  # 14min in
+     name = models.CharField(max_length=255, db_index=True)
+     slug = models.SlugField(max_length=255, unique=True)
+ 
+@@ -11,10 +12,11 @@
+     def get_absolute_url(self):
+         return self.name
+ 
+-class Product(models.Model): #about 19 min in
++
++class Product(models.Model):  # about 19 min in
+     category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
+-    created_by = models.ForeignKey(User, on_delete= models.CASCADE, related_name='product_creator')
+-    product_name = models.CharField(max_length= 255)
++    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator')
++    product_name = models.CharField(max_length=255)
+     sleeve_style = models.CharField(max_length=255, default='Short Sleeve')
+     shirt_style = models.CharField(max_length=255, default='T-Shirt')
+     size = models.CharField(max_length=255, default='Medium')
+@@ -28,9 +30,7 @@
+ 
+     class Meta:
+         verbose_name_plural = 'Products'
+-        ordering = ('-created',) #27:21 #can remove hyphen to have all "created" orders show
++        ordering = ('-created',)  # 27:21 #can remove hyphen to have all "created" orders show
+ 
+     def __str__(self):
+-        return self.title #im at 34:26 10/5/2021
+-
+-
++        return self.title  # im at 34:26 10/5/2021
